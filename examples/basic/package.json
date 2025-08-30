@@ -1,0 +1,13 @@
+{
+  "name": "my-awesome-app",
+  "version": "1.0.0",
+  "description": "MyAwesomeApp - A great application",
+  "main": "src/MyAwesomeApp.js",
+  "scripts": {
+    "start": "node src/MyAwesomeApp.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["MyAwesomeApp", "awesome", "app"],
+  "author": "MyAwesomeApp Team",
+  "license": "MIT"
+}
