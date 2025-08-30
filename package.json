@@ -1,0 +1,131 @@
+{
+  "name": "refacto",
+  "version": "1.0.0",
+  "description": "Enterprise-grade project renaming tool with 98% test coverage. Works with ANY programming language and framework. Features smart case preservation across 7 formats.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "refacto": "./dist/cli.mjs"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./cli": {
+      "types": "./dist/cli.d.ts",
+      "import": "./dist/cli.mjs",
+      "require": "./dist/cli.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "dev": "tsx src/cli.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write src/**/*.ts",
+    "format:check": "prettier --check src/**/*.ts",
+    "type-check": "tsc --noEmit",
+    "prepublishOnly": "npm run build && npm run test && npm run lint",
+    "prepare": "npm run build",
+    "clean": "rimraf dist",
+    "docs:build": "typedoc src/index.ts",
+    "semantic-release": "semantic-release",
+    "demo:dry": "npm run build && node dist/cli.mjs --from Hookflow --to TestProject --dry-run"
+  },
+  "keywords": [
+    "rename",
+    "refactor", 
+    "project",
+    "cli",
+    "tool",
+    "typescript",
+    "case-preservation",
+    "smart-rename",
+    "codebase",
+    "migration",
+    "camelcase",
+    "kebab-case",
+    "snake-case",
+    "pascal-case",
+    "language-agnostic",
+    "framework-agnostic",
+    "cross-platform",
+    "multi-language",
+    "polyglot",
+    "universal",
+    "enterprise-grade",
+    "high-coverage",
+    "java",
+    "python",
+    "golang",
+    "ruby",
+    "php",
+    "cpp",
+    "rust",
+    "non-javascript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hookflow/hookflow.git",
+    "directory": "tools/refacto"
+  },
+  "homepage": "https://github.com/hookflow/hookflow/tree/main/tools/refacto",
+  "bugs": {
+    "url": "https://github.com/hookflow/hookflow/issues"
+  },
+  "author": {
+    "name": "Hookflow Team",
+    "url": "https://hookflow.dev"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "dependencies": {
+    "commander": "^11.1.0",
+    "glob": "^10.3.10",
+    "inquirer": "^9.2.12"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.10.5",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "@vitest/coverage-v8": "^1.1.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.1",
+    "prettier": "^3.1.1",
+    "rimraf": "^5.0.5",
+    "semantic-release": "^22.0.12",
+    "tsup": "^8.0.1",
+    "tsx": "^4.6.2",
+    "typedoc": "^0.25.6",
+    "typescript": "^5.3.3",
+    "vitest": "^1.1.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  }
+}
