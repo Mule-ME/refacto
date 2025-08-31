@@ -2,10 +2,8 @@
 github: [Mule-ME]
 ko_fi: mulualem
 
-# Next 2 to activate (best ROI for npm packages):
-# open_collective: refacto  # Companies sponsor here (webpack: $400k+/year)
-# tidelift: npm/refacto  # Pays npm maintainers $50k-100k/year
-
+# open_collective: refacto  
+# tidelift: npm/refacto 
 # Additional Support
 custom: [
   'https://github.com/sponsors/Mule-ME',
