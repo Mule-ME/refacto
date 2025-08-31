@@ -23,23 +23,23 @@ A powerful, safe, and intelligent tool for renaming projects across your entire 
 
 ## 🏆 Why Choose refacto?
 
-### 🌍 **100% Language & Framework Agnostic**
-- ✅ **Works with ANY language**: JavaScript, TypeScript, Python, Java, Go, Rust, C++, Ruby, PHP, and more
-- ✅ **Works with ANY framework**: React, Vue, Angular, Django, Rails, Spring, Express, and more
-- ✅ **Works with ANY file type**: Source code, configs, docs, CI/CD, Docker, K8s manifests
-- ✅ **Cross-platform**: Windows, macOS, Linux
+### 🌍 **Language & Framework Agnostic**
+- **Works with ANY language**: JavaScript, TypeScript, Python, Java, Go, Rust, C++, Ruby, PHP, and more
+- **Works with ANY framework**: React, Vue, Angular, Django, Rails, Spring, Express, and more
+- **Works with ANY file type**: Source code, configs, docs, CI/CD, Docker, K8s manifests
+- **Cross-platform**: Windows, macOS, Linux
 
 ### 🛡️ **Enterprise-Grade Quality**
-- ✅ **98% Code Coverage**: 79 comprehensive tests covering all edge cases
-- ✅ **100% TypeScript**: Full type safety and IntelliSense support
-- ✅ **Production Ready**: Battle-tested on real projects, including renaming itself
-- ✅ **Zero Dependencies**: Only 3 minimal runtime dependencies for maximum security
+- **98% Code Coverage**: 79 comprehensive tests covering all edge cases
+- **100% TypeScript**: Full type safety and IntelliSense support
+- **Production Ready**: Battle-tested on real projects
+- **Minimal Dependencies**: Only 3 runtime dependencies for maximum security
 
 ### ⚡ **Smart & Safe**
-- ✅ **Smart Case Detection**: Preserves your code style across 7 different case formats
-- ✅ **Dry-Run Mode**: Preview all changes before committing
-- ✅ **Binary Safe**: Automatically skips binary files, images, and compiled code
-- ✅ **Git Aware**: Updates git remote URLs automatically
+- **Smart Case Detection**: Preserves your code style across 7 different case formats
+- **Dry-Run Mode**: Preview all changes before committing
+- **Binary Safe**: Automatically skips binary files, images, and compiled code
+- **Git Aware**: Updates git remote URLs automatically
 
 ## Features
 
@@ -64,26 +64,6 @@ A powerful, safe, and intelligent tool for renaming projects across your entire 
   - Detailed change analysis
   - Skips binary files and common build directories
 
-## 🤔 Comparison with Other Tools
-
-### vs react-native-rename (11.8k weekly downloads)
-| Feature | refacto | react-native-rename |
-|---------|-------------------------|-------------------|
-| **Language Support** | ✅ ALL languages | ❌ React Native only |
-| **Test Coverage** | ✅ 98% (79 tests) | ❓ Not published |
-| **Case Preservation** | ✅ 7 smart formats | ❌ Basic replacement |
-| **Dry-Run Mode** | ✅ Yes | ❌ No |
-| **TypeScript** | ✅ 100% with types | ❌ JavaScript only |
-| **Git Integration** | ✅ Updates remotes | ❌ Basic check only |
-| **Binary Safety** | ✅ Auto-detection | ❌ Not mentioned |
-| **Framework Agnostic** | ✅ Yes | ❌ RN specific |
-| **Bundle ID Support** | 🚀 Coming v1.1.0 | ✅ iOS/Android |
-
-### Why Choose Us?
-- **One tool for ALL projects** - Java, Python, Go, React, Vue, Angular, etc.
-- **Enterprise-grade quality** - 98% test coverage
-- **Smarter renaming** - Preserves your code style perfectly
-- **Safer** - Dry-run mode lets you preview changes
 
 ## 🌐 Works With Every Language
 
@@ -308,22 +288,16 @@ The tool is designed to be safe:
 ## 📊 Quality & Testing
 
 ### Test Coverage
-```
-✅ 98% Overall Coverage
-✅ 79 Comprehensive Tests  
-✅ 100% Core Business Logic
-✅ 100% API Surface Coverage
-✅ Cross-platform CI/CD Pipeline
-```
+- 98% overall coverage
+- 79 comprehensive tests
+- Full core logic coverage
+- Cross-platform CI/CD
 
 ### Code Quality
-```typescript
-✅ 100% TypeScript with Strict Mode
-✅ ESLint + Prettier Enforced
-✅ Zero Security Vulnerabilities
-✅ Automated Dependency Updates
-✅ Semantic Versioning
-```
+- 100% TypeScript with strict mode
+- ESLint + Prettier enforced
+- Automated dependency updates
+- Semantic versioning
 
 ## Troubleshooting
 
@@ -355,44 +329,17 @@ For very large projects (10,000+ files):
 refacto --from "OldName" --to "NewName" --verbose
 ```
 
-## 🗺️ Roadmap
-
-### v1.1.0 (Q1 2024) - Mobile Developer Focus
-- ✅ Bundle ID support for iOS/Android
-- ✅ Framework presets (React Native, Flutter, Expo)
-- ✅ Post-rename instructions
-- ✅ Mobile-specific validations
-
-### v1.2.0 (Q2 2024) - Performance & Safety
-- ⚡ Parallel processing for large codebases
-- 🔒 Automatic backup before rename
-- ↩️ Undo/restore functionality
-- 📊 Progress bars with ETA
-
-### v1.3.0 (Q3 2024) - Developer Experience
-- 🔧 Configuration file support (.renamerc)
-- 🎨 VSCode extension
-- 🔌 Plugin system
-- 📝 Detailed HTML reports
-
-### v2.0.0 (Q4 2024) - Enterprise Features
-- 🏢 Monorepo/workspace support
-- 🤖 AI-powered suggestions
-- ☁️ Cloud backup (premium)
-- 📊 Analytics dashboard
-
-See [CHANGELOG.md](CHANGELOG.md) for detailed planned features.
 
 ## Contributing
 
 We welcome contributions! This project follows enterprise-grade standards:
 
 ### Development Requirements
-- **100% test coverage** for new features
-- **TypeScript** with strict mode
-- **ESLint** compliance (no warnings)
-- **Comprehensive documentation**
-- **Cross-platform compatibility**
+- 100% test coverage for new features
+- TypeScript with strict mode
+- ESLint compliance (no warnings)
+- Comprehensive documentation
+- Cross-platform compatibility
 
 ### How to Contribute
 1. Fork the repository
@@ -415,9 +362,12 @@ npm run test:coverage # Must maintain >95% coverage
 
 ## License
 
-MIT License - See [LICENSE](LICENSE) file for details.
+MIT - See [LICENSE](LICENSE)
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for version history.
 
 ---
 
-**Built with ❤️ by [Mule-ME](https://github.com/Mule-ME)**  
-*Open source tool for the developer community*
+**Built by [Mule-ME](https://github.com/Mule-ME)**
