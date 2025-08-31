@@ -97,7 +97,7 @@ async function main(): Promise<void> {
     .name('refacto')
     .description('Rename all occurrences of project name throughout the codebase with smart case preservation')
     .version(packageJson.version)
-    .requiredOption('--from <name>', 'Current project name (e.g., "Hookflow")')
+    .requiredOption('--from <name>', 'Current project name (e.g., "Refacto")')
     .requiredOption('--to <name>', 'New project name (e.g., "TestProject")')
     .option('--dry-run', 'Show what would be renamed without making changes', false)
     .option('-v, --verbose', 'Show detailed output', false)
@@ -109,7 +109,7 @@ async function main(): Promise<void> {
   // Add examples in help
   program.addHelpText('after', `
 Examples:
-  $ refacto --from "Hookflow" --to "MyProject" --dry-run
+  $ refacto --from "Refacto" --to "MyProject" --dry-run
   $ refacto --from "old-name" --to "new-name" --verbose
   $ refacto --interactive
   $ refacto --from "Company" --to "NewCorp" --ignore "docs/**" "tests/**"

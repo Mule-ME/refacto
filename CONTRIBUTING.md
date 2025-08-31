@@ -1,6 +1,6 @@
-# Contributing to @hookflow/refacto
+# Contributing to refacto
 
-First off, thank you for considering contributing to @hookflow/refacto! It's people like you that make this tool better for everyone.
+First off, thank you for considering contributing to refacto! It's people like you that make this tool better for everyone.
 
 ## Code of Conduct
 
@@ -175,7 +175,7 @@ All submissions require review. We use GitHub pull requests for this purpose. Th
 
 - **GitHub Issues**: Bug reports and feature requests
 - **GitHub Discussions**: General questions and ideas
-- **Twitter**: [@hookflow](https://twitter.com/hookflow) for announcements
+- **Twitter/X**: Follow [@Mule_ME](https://github.com/Mule-ME) for announcements
 
 ## Recognition
 
@@ -188,4 +188,4 @@ Contributors are recognized in our:
 
 Feel free to open an issue with your question or reach out to the maintainers.
 
-Thank you for contributing to @hookflow/refacto! 🎉
+Thank you for contributing to refacto! 🎉

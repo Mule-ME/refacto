@@ -40,7 +40,7 @@ body:
     id: version
     attributes:
       label: Version
-      description: What version of @hookflow/refacto are you running?
+      description: What version of refacto are you running?
       options:
         - 1.0.0 (latest)
         - 0.9.x

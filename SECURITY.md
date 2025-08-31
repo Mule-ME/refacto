@@ -11,7 +11,7 @@ We release patches for security vulnerabilities. Which versions are eligible for
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability within @hookflow/refacto, please follow these steps:
+If you discover a security vulnerability within refacto, please follow these steps:
 
 ### 1. Do NOT Create a Public Issue
 
@@ -19,7 +19,7 @@ Security vulnerabilities should **never** be reported through public GitHub issu
 
 ### 2. Email Us Directly
 
-Send an email to security@hookflow.com with:
+Send an email to mulualemesh15@gmail.com with:
 
 - Type of issue (e.g., buffer overflow, SQL injection, cross-site scripting, etc.)
 - Full paths of source file(s) related to the manifestation of the issue
@@ -51,7 +51,7 @@ Send an email to security@hookflow.com with:
 ### 1. Keep Dependencies Updated
 
 ```bash
-npm update @hookflow/refacto
+npm update refacto
 ```
 
 ### 2. Use Lock Files
@@ -70,7 +70,7 @@ npm audit fix
 When using the programmatic API, always validate input:
 
 ```javascript
-import { ProjectRenamer } from '@hookflow/refacto';
+import { ProjectRenamer } from 'refacto';
 
 // Validate input before using
 function validateProjectName(name) {
@@ -121,11 +121,10 @@ We regularly update our dependencies and use tools to monitor for vulnerabilitie
 
 ## Contact
 
-- Security Email: security@hookflow.com
-- Security GPG Key: [Download from our website]
+- Security Email: mulualemesh15@gmail.com
 
 ## Acknowledgments
 
 We appreciate responsible disclosure and will acknowledge security researchers who follow this policy.
 
-Thank you for helping keep @hookflow/refacto and its users safe!
+Thank you for helping keep refacto and its users safe!

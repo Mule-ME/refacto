@@ -16,5 +16,5 @@
   "prConcurrentLimit": 3,
   "prCreation": "not-pending",
   "labels": ["dependencies"],
-  "assignees": ["@hookflow/maintainers"]
+  "assignees": ["@Mule-ME"]
 }

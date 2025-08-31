@@ -44,7 +44,7 @@ describe('CaseConverter', () => {
     it('should detect package-scope', () => {
       expect(converter.detectCaseStyle('@package')).toBe('package-scope');
       expect(converter.detectCaseStyle('@my-org')).toBe('package-scope');
-      expect(converter.detectCaseStyle('@hookflow')).toBe('package-scope');
+      expect(converter.detectCaseStyle('@refacto')).toBe('package-scope');
     });
   });
 

@@ -98,7 +98,7 @@ We're considering these features for future releases:
 - Performance optimizations
 - Configuration file support
 
-Want to influence our priorities? [Open a discussion](https://github.com/hookflow/refacto/discussions) or [submit a feature request](https://github.com/hookflow/refacto/issues).
+Want to influence our priorities? [Open a discussion](https://github.com/Mule-ME/refacto/discussions) or [submit a feature request](https://github.com/Mule-ME/refacto/issues).
 
 ---
 

@@ -44,7 +44,7 @@
     "clean": "rimraf dist",
     "docs:build": "typedoc src/index.ts",
     "semantic-release": "semantic-release",
-    "demo:dry": "npm run build && node dist/cli.mjs --from Hookflow --to TestProject --dry-run"
+    "demo:dry": "npm run build && node dist/cli.mjs --from Refacto --to TestProject --dry-run"
   },
   "keywords": [
     "rename",
@@ -80,16 +80,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/hookflow/hookflow.git",
-    "directory": "tools/refacto"
+    "url": "https://github.com/Mule-ME/refacto.git"
   },
-  "homepage": "https://github.com/hookflow/hookflow/tree/main/tools/refacto",
+  "homepage": "https://github.com/Mule-ME/refacto",
   "bugs": {
-    "url": "https://github.com/hookflow/hookflow/issues"
+    "url": "https://github.com/Mule-ME/refacto/issues"
   },
   "author": {
-    "name": "Hookflow Team",
-    "url": "https://hookflow.dev"
+    "name": "Mulualem Eshetu",
+    "url": "https://github.com/Mule-ME"
   },
   "license": "MIT",
   "engines": {

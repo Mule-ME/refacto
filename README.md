@@ -1,9 +1,9 @@
 # refacto
 
-[![npm version](https://badge.fury.io/js/@hookflow%2Frefacto.svg)](https://badge.fury.io/js/@hookflow%2Frefacto)
-[![CI](https://github.com/hookflow/hookflow/actions/workflows/ci.yml/badge.svg)](https://github.com/hookflow/hookflow/actions/workflows/ci.yml)
-[![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen.svg)](https://codecov.io/gh/hookflow/hookflow)
-[![Tests](https://img.shields.io/badge/tests-79%20passing-brightgreen.svg)](https://github.com/hookflow/hookflow)
+[![npm version](https://badge.fury.io/js/refacto.svg)](https://www.npmjs.com/package/refacto)
+[![CI](https://github.com/Mule-ME/refacto/actions/workflows/ci.yml/badge.svg)](https://github.com/Mule-ME/refacto/actions/workflows/ci.yml)
+[![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen.svg)](https://github.com/Mule-ME/refacto)
+[![Tests](https://img.shields.io/badge/tests-79%20passing-brightgreen.svg)](https://github.com/Mule-ME/refacto)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -32,7 +32,7 @@ A powerful, safe, and intelligent tool for renaming projects across your entire 
 ### 🛡️ **Enterprise-Grade Quality**
 - ✅ **98% Code Coverage**: 79 comprehensive tests covering all edge cases
 - ✅ **100% TypeScript**: Full type safety and IntelliSense support
-- ✅ **Production Ready**: Used internally at Hookflow, battle-tested on real projects
+- ✅ **Production Ready**: Battle-tested on real projects, including renaming itself
 - ✅ **Zero Dependencies**: Only 3 minimal runtime dependencies for maximum security
 
 ### ⚡ **Smart & Safe**
@@ -44,12 +44,12 @@ A powerful, safe, and intelligent tool for renaming projects across your entire 
 ## Features
 
 - **Smart Case Preservation**: Automatically detects and preserves case styles
-  - `hookFlow` → `testProject` (camelCase preserved)
-  - `HookFlow` → `TestProject` (PascalCase preserved)
-  - `hook-flow` → `test-project` (kebab-case preserved)
-  - `hook_flow` → `test_project` (snake_case preserved)
-  - `HOOKFLOW` → `TESTPROJECT` (UPPERCASE preserved)
-  - `@hookflow` → `@testproject` (package scope preserved)
+  - `myProject` → `newProject` (camelCase preserved)
+  - `MyProject` → `NewProject` (PascalCase preserved)
+  - `my-project` → `new-project` (kebab-case preserved)
+  - `my_project` → `new_project` (snake_case preserved)
+  - `MY_PROJECT` → `NEW_PROJECT` (UPPERCASE preserved)
+  - `@myorg/project` → `@myorg/newname` (package scope preserved)
 
 - **Comprehensive Renaming**:
   - File contents (code, markdown, json, etc.)
@@ -92,60 +92,60 @@ The tool intelligently renames across **all programming languages** in your proj
 ### JavaScript/TypeScript
 ```javascript
 // Before
-export class HookflowClient { ... }
-const hookflowConfig = { ... };
+export class DataProcessor { ... }
+const dataProcessorConfig = { ... };
 
-// After
-export class AwesomeClient { ... }
-const awesomeConfig = { ... };
+// After  
+export class DataAnalyzer { ... }
+const dataAnalyzerConfig = { ... };
 ```
 
 ### Python
 ```python
 # Before
-from hookflow_sdk import HookflowAPI
-HOOKFLOW_KEY = os.getenv('HOOKFLOW_KEY')
+from analytics_sdk import AnalyticsAPI
+ANALYTICS_KEY = os.getenv('ANALYTICS_KEY')
 
 # After  
-from awesome_sdk import AwesomeAPI
-AWESOME_KEY = os.getenv('AWESOME_KEY')
+from metrics_sdk import MetricsAPI
+METRICS_KEY = os.getenv('METRICS_KEY')
 ```
 
 ### Java/Kotlin
 ```java
 // Before
-public class HookflowService extends HookflowBase {
-    private static final String HOOKFLOW_URL = "...";
+public class PaymentService extends PaymentBase {
+    private static final String PAYMENT_API_URL = "...";
 }
 
 // After
-public class AwesomeService extends AwesomeBase {
-    private static final String AWESOME_URL = "...";
+public class BillingService extends BillingBase {
+    private static final String BILLING_API_URL = "...";
 }
 ```
 
 ### Go
 ```go
 // Before
-package hookflow
-type HookflowConfig struct { ... }
+package userauth
+type UserAuthConfig struct { ... }
 
 // After
-package awesome
-type AwesomeConfig struct { ... }
+package authentication
+type AuthenticationConfig struct { ... }
 ```
 
 ### React Native
 ```javascript
 // Before  
-export default class HookflowApp extends Component { ... }
-// ios/HookflowApp.xcodeproj
-// android/app/src/main/java/com/hookflowapp/
+export default class TodoApp extends Component { ... }
+// ios/TodoApp.xcodeproj
+// android/app/src/main/java/com/todoapp/
 
 // After
-export default class AwesomeApp extends Component { ... }
-// ios/AwesomeApp.xcodeproj  
-// android/app/src/main/java/com/awesomeapp/
+export default class TaskManager extends Component { ... }
+// ios/TaskManager.xcodeproj  
+// android/app/src/main/java/com/taskmanager/
 ```
 
 ### And More!
@@ -331,10 +331,10 @@ The tool is designed to be safe:
 The tool is case-sensitive. Make sure to provide the exact current name:
 ```bash
 # Wrong
---from "hookflow"  # If actual name is "Hookflow"
+--from "myproject"  # If actual name is "MyProject"
 
 # Correct
---from "Hookflow"
+--from "MyProject"
 ```
 
 ### Permission Errors
@@ -419,5 +419,5 @@ MIT License - See [LICENSE](LICENSE) file for details.
 
 ---
 
-**Built with ❤️ by the Hookflow team**  
-*Part of the Hookflow Internal Tools Empire*
+**Built with ❤️ by [Mule-ME](https://github.com/Mule-ME)**  
+*Open source tool for the developer community*

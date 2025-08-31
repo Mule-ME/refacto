@@ -13,7 +13,7 @@ updates:
       time: "03:00"
     open-pull-requests-limit: 5
     assignees:
-      - "@hookflow/maintainers"
+      - "@Mule-ME"
     labels:
       - "dependencies"
       - "npm"
@@ -28,7 +28,7 @@ updates:
       day: "monday"
       time: "03:00"
     assignees:
-      - "@hookflow/maintainers"
+      - "@Mule-ME"
     labels:
       - "dependencies"
       - "github-actions"

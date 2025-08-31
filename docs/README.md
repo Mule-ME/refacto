@@ -24,11 +24,11 @@ Welcome to the refacto documentation!
 
 ## Getting Help
 
-- **Issues**: [GitHub Issues](https://github.com/hookflow/refacto/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/hookflow/refacto/discussions)
+- **Issues**: [GitHub Issues](https://github.com/Mule-ME/refacto/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/Mule-ME/refacto/discussions)
 - **Changelog**: [CHANGELOG.md](../CHANGELOG.md)
 
 ## Additional Resources
 
 - [npm Package](https://www.npmjs.com/package/refacto)
-- [GitHub Repository](https://github.com/hookflow/refacto)
+- [GitHub Repository](https://github.com/Mule-ME/refacto)
