@@ -2,17 +2,38 @@ name: CI
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+
+# Cancel old runs when pushing new commits
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+# Declare permissions for security
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [16.x, 18.x, 20.x]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [18.x, 20.x, 22.x]
+        exclude:
+          # Skip some combinations to save CI time
+          - os: windows-latest
+            node-version: 18.x
+          - os: macos-latest
+            node-version: 18.x
 
     steps:
       - name: Checkout code
@@ -25,39 +46,37 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        working-directory: tools/refacto
         run: npm ci
 
       - name: Run type checking
-        working-directory: tools/refacto
         run: npm run type-check
 
       - name: Run linting
-        working-directory: tools/refacto
         run: npm run lint
 
       - name: Run formatting check
-        working-directory: tools/refacto
         run: npm run format:check
 
       - name: Build project
-        working-directory: tools/refacto
         run: npm run build
 
-      - name: Run tests
-        working-directory: tools/refacto
+      - name: Run tests with coverage
         run: npm run test:coverage
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '20.x'
+        uses: codecov/codecov-action@v4
         with:
-          file: ./tools/refacto/coverage/lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/lcov.info
           flags: unittests
           name: codecov-umbrella
+          fail_ci_if_error: false
 
   integration:
     runs-on: ubuntu-latest
     needs: test
+    timeout-minutes: 5
 
     steps:
       - name: Checkout code
@@ -70,35 +89,41 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        working-directory: tools/refacto
         run: npm ci
 
       - name: Build project
-        working-directory: tools/refacto
         run: npm run build
 
       - name: Test CLI installation
-        working-directory: tools/refacto
         run: |
           npm link
           refacto --help
           refacto --version
 
-      - name: Test dry run on actual project
-        working-directory: tools/refacto
-        run: npm run demo:dry
+      - name: Test dry run on sample project
+        run: |
+          mkdir -p test-project
+          echo "TestProject" > test-project/README.md
+          refacto --from "TestProject" --to "NewProject" --dry-run
 
   publish:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     needs: [test, integration]
+    timeout-minutes: 10
+    
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -108,16 +133,31 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
-        working-directory: tools/refacto
         run: npm ci
 
       - name: Build project
-        working-directory: tools/refacto
         run: npm run build
 
+      - name: Check if semantic-release exists
+        id: check-semantic
+        run: |
+          if npm run | grep -q "semantic-release"; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Run semantic release
-        working-directory: tools/refacto
+        if: steps.check-semantic.outputs.exists == 'true'
         run: npm run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to npm (if no semantic-release)
+        if: steps.check-semantic.outputs.exists == 'false' && secrets.NPM_TOKEN != ''
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

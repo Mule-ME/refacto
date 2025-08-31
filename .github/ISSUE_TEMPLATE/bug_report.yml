@@ -37,14 +37,24 @@ body:
       required: true
 
   - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severe is this bug?
+      options:
+        - Critical - Tool is unusable
+        - High - Major functionality broken
+        - Medium - Minor functionality affected
+        - Low - Cosmetic or minor issue
+    validations:
+      required: true
+
+  - type: input
     id: version
     attributes:
       label: Version
-      description: What version of refacto are you running?
-      options:
-        - 1.0.0 (latest)
-        - 0.9.x
-        - Other (specify in additional context)
+      description: What version of refacto are you running? Run `refacto --version`
+      placeholder: e.g., 1.0.0 or latest
     validations:
       required: true
 
@@ -68,6 +78,25 @@ body:
     validations:
       required: true
 
+  - type: dropdown
+    id: package-manager
+    attributes:
+      label: Package Manager
+      options:
+        - npm
+        - yarn
+        - pnpm
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: project-info
+    attributes:
+      label: Project Language/Framework
+      description: What language/framework is your project using?
+      placeholder: e.g., TypeScript, React, Python, Java
+
   - type: textarea
     id: logs
     attributes:
@@ -82,10 +111,13 @@ body:
       description: Add any other context about the problem here.
 
   - type: checkboxes
-    id: terms
+    id: checklist
     attributes:
-      label: Code of Conduct
-      description: By submitting this issue, you agree to follow our Code of Conduct
+      label: Checklist
       options:
-        - label: I agree to follow this project's Code of Conduct
+        - label: I have searched for similar issues
+          required: true
+        - label: I have tested with the latest version
+          required: true
+        - label: I have provided all required information above
           required: true
