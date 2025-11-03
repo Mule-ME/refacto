@@ -97,7 +97,7 @@
   },
   "dependencies": {
     "commander": "^11.1.0",
-    "glob": "^10.3.10",
+    "glob": "^11.0.3",
     "inquirer": "^9.2.12"
   },
   "devDependencies": {
