@@ -33,17 +33,17 @@ refacto --from "old-name" --to "new-name"
 
 ### Options
 
-| Option | Alias | Description | Default |
-|--------|-------|-------------|---------|
-| `--from` | `-f` | Current project name (required) | - |
-| `--to` | `-t` | New project name (required) | - |
-| `--dry-run` | `-d` | Preview changes without applying | false |
-| `--verbose` | `-v` | Show detailed output | false |
-| `--skip-git` | | Skip git remote URL updates | false |
-| `--ignore` | `-i` | Additional ignore patterns | [] |
-| `--force` | | Skip confirmation prompt | false |
-| `--help` | `-h` | Show help | - |
-| `--version` | | Show version | - |
+| Option       | Alias | Description                      | Default |
+| ------------ | ----- | -------------------------------- | ------- |
+| `--from`     | `-f`  | Current project name (required)  | -       |
+| `--to`       | `-t`  | New project name (required)      | -       |
+| `--dry-run`  | `-d`  | Preview changes without applying | false   |
+| `--verbose`  | `-v`  | Show detailed output             | false   |
+| `--skip-git` |       | Skip git remote URL updates      | false   |
+| `--ignore`   | `-i`  | Additional ignore patterns       | []      |
+| `--force`    |       | Skip confirmation prompt         | false   |
+| `--help`     | `-h`  | Show help                        | -       |
+| `--version`  |       | Show version                     | -       |
 
 ### Examples
 
@@ -72,7 +72,7 @@ const renamer = new ProjectRenamer({
   from: 'old-name',
   to: 'new-name',
   dryRun: false,
-  verbose: true
+  verbose: true,
 });
 
 // Analyze changes
@@ -112,6 +112,7 @@ Analyzes the project and returns information about what would be changed.
 **Returns:** `RenameAnalysis` object with change statistics
 
 **Example:**
+
 ```typescript
 const analysis = await renamer.analyze();
 console.log(`Will change ${analysis.contentChanges} files`);
@@ -126,6 +127,7 @@ async rename(): Promise<void>
 Performs the actual rename operation. Will show progress if verbose is enabled.
 
 **Example:**
+
 ```typescript
 await renamer.rename();
 ```
@@ -141,6 +143,7 @@ Returns an array of all changes made during the rename operation.
 **Returns:** Array of `RenameChange` objects
 
 **Example:**
+
 ```typescript
 const changes = renamer.getChanges();
 changes.forEach(change => {
@@ -157,11 +160,13 @@ smartReplace(text: string): { result: string; replacements: number }
 Performs smart case-preserving replacement on the given text.
 
 **Parameters:**
+
 - `text`: The text to process
 
 **Returns:** Object with replaced text and replacement count
 
 **Example:**
+
 ```typescript
 const { result, replacements } = renamer.smartReplace('MyApp is great');
 // result: 'NewApp is great', replacements: 1
@@ -182,6 +187,7 @@ generateVariations(text: string): Map<string, CaseStyle>
 Generates all case variations of the given text.
 
 **Example:**
+
 ```typescript
 const converter = new CaseConverter();
 const variations = converter.generateVariations('MyProject');
@@ -191,12 +197,13 @@ const variations = converter.generateVariations('MyProject');
 ##### detectCaseStyle()
 
 ```typescript
-detectCaseStyle(text: string): CaseStyle | null
+detectCaseStyle(text: string): CaseStyle
 ```
 
 Detects the case style of the given text.
 
 **Example:**
+
 ```typescript
 const style = converter.detectCaseStyle('my-project');
 // Returns 'kebab-case'
@@ -256,13 +263,13 @@ constructor(verbose: boolean = false)
 
 ```typescript
 interface RenameOptions {
-  from: string;           // Current project name
-  to: string;             // New project name
-  dryRun?: boolean;       // Preview only (default: false)
-  verbose?: boolean;      // Detailed output (default: false)
-  skipGit?: boolean;      // Skip git updates (default: false)
-  ignore?: string[];      // Additional ignore patterns
-  force?: boolean;        // Skip confirmation (default: false)
+  from: string; // Current project name
+  to: string; // New project name
+  dryRun?: boolean; // Preview only (default: false)
+  verbose?: boolean; // Detailed output (default: false)
+  skipGit?: boolean; // Skip git updates (default: false)
+  ignore?: string[]; // Additional ignore patterns
+  force?: boolean; // Skip confirmation (default: false)
 }
 ```
 
@@ -270,11 +277,11 @@ interface RenameOptions {
 
 ```typescript
 interface RenameAnalysis {
-  contentChanges: number;      // Files with content changes
-  fileRenames: number;         // Files to rename
-  dirRenames: number;          // Directories to rename
-  totalReplacements: number;   // Total text replacements
-  estimatedDuration: number;   // Estimated seconds
+  contentChanges: number; // Files with content changes
+  fileRenames: number; // Files to rename
+  dirRenames: number; // Directories to rename
+  totalReplacements: number; // Total text replacements
+  estimatedDuration: number; // Estimated seconds
 }
 ```
 
@@ -284,20 +291,21 @@ interface RenameAnalysis {
 interface RenameChange {
   type: 'content' | 'file' | 'directory';
   oldPath: string;
-  newPath?: string;      // For file/directory renames
-  changes?: number;      // For content changes
+  newPath?: string; // For file/directory renames
+  changes?: number; // For content changes
 }
 ```
 
 ### CaseStyle
 
 ```typescript
-type CaseStyle = 
+type CaseStyle =
   | 'camelCase'
   | 'PascalCase'
   | 'kebab-case'
   | 'snake_case'
   | 'UPPERCASE'
+  | 'UPPERCASE_COMPACT'
   | 'lowercase';
 ```
 
@@ -305,9 +313,9 @@ type CaseStyle =
 
 ```typescript
 interface ScanOptions {
-  ignore?: string[];         // Ignore patterns
-  includeHidden?: boolean;   // Include hidden files
-  maxDepth?: number;         // Maximum depth
+  ignore?: string[]; // Ignore patterns
+  includeHidden?: boolean; // Include hidden files
+  maxDepth?: number; // Maximum depth
 }
 ```
 
@@ -335,9 +343,9 @@ import { ProjectRenamer } from 'refacto';
 try {
   const renamer = new ProjectRenamer({
     from: 'old-name',
-    to: 'new-name'
+    to: 'new-name',
   });
-  
+
   await renamer.rename();
 } catch (error) {
   console.error('Rename failed:', error.message);
@@ -350,11 +358,7 @@ try {
 const renamer = new ProjectRenamer({
   from: 'old-name',
   to: 'new-name',
-  ignore: [
-    'vendor/**',
-    'legacy/**',
-    '*.backup'
-  ]
+  ignore: ['vendor/**', 'legacy/**', '*.backup'],
 });
 ```
 
@@ -367,37 +371,37 @@ const { ProjectRenamer } = require('refacto');
 module.exports = {
   plugins: [
     {
-      apply: (compiler) => {
+      apply: compiler => {
         compiler.hooks.beforeCompile.tapPromise('RenamePlugin', async () => {
           if (process.env.RENAME_FROM && process.env.RENAME_TO) {
             const renamer = new ProjectRenamer({
               from: process.env.RENAME_FROM,
-              to: process.env.RENAME_TO
+              to: process.env.RENAME_TO,
             });
             await renamer.rename();
           }
         });
-      }
-    }
-  ]
+      },
+    },
+  ],
 };
 ```
 
 ### Batch Processing
 
 ```typescript
-async function renameBatch(renames: Array<{from: string, to: string}>) {
+async function renameBatch(renames: Array<{ from: string; to: string }>) {
   for (const { from, to } of renames) {
     const renamer = new ProjectRenamer({
       from,
       to,
       dryRun: false,
-      force: true
+      force: true,
     });
-    
+
     console.log(`Renaming ${from} to ${to}...`);
     await renamer.rename();
-    
+
     const changes = renamer.getChanges();
     console.log(`Completed: ${changes.length} changes`);
   }
@@ -431,6 +435,6 @@ const renamer = new ProjectRenamer({
   from: 'old',
   to: 'new',
   verbose: true,
-  dryRun: true
+  dryRun: true,
 });
 ```
