@@ -3,11 +3,11 @@
 [![npm version](https://badge.fury.io/js/refacto.svg)](https://www.npmjs.com/package/refacto)
 [![CI](https://github.com/Mule-ME/refacto/actions/workflows/ci.yml/badge.svg)](https://github.com/Mule-ME/refacto/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen.svg)](https://github.com/Mule-ME/refacto)
-[![Tests](https://img.shields.io/badge/tests-79%20passing-brightgreen.svg)](https://github.com/Mule-ME/refacto)
+[![Tests](https://img.shields.io/badge/tests-111%20passing-brightgreen.svg)](https://github.com/Mule-ME/refacto)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> **Enterprise-grade project renaming tool with 98% test coverage, framework agnostic design, and smart case preservation**
+> **Enterprise-grade project renaming tool with 98%+ source test coverage, framework agnostic design, and smart case preservation**
 
 ```bash
 # One command to rename your entire project across ALL languages & frameworks
@@ -16,27 +16,30 @@ refacto --from "OldProject" --to "AwesomeProject"
 ✓ Renames in JavaScript, Python, Java, Go, Ruby, PHP, Rust, and more...
 ✓ Updates configs, Docker files, CI/CD, documentation...
 ✓ Preserves your code style (camelCase, snake_case, kebab-case, etc.)
-✓ Safe with dry-run mode and 98% test coverage
+✓ Safe with dry-run mode and 98%+ source test coverage
 ```
 
-A powerful, safe, and intelligent tool for renaming projects across your entire codebase. Works with **ANY programming language** and **ANY framework**. Battle-tested with 79 comprehensive tests achieving 98% code coverage.
+A powerful, safe, and intelligent tool for renaming projects across your entire codebase. Works with **ANY programming language** and **ANY framework**. Battle-tested with 111 comprehensive tests achieving 98%+ source code coverage.
 
 ## 🏆 Why Choose refacto?
 
 ### 🌍 **Language & Framework Agnostic**
+
 - **Works with ANY language**: JavaScript, TypeScript, Python, Java, Go, Rust, C++, Ruby, PHP, and more
 - **Works with ANY framework**: React, Vue, Angular, Django, Rails, Spring, Express, and more
 - **Works with ANY file type**: Source code, configs, docs, CI/CD, Docker, K8s manifests
 - **Cross-platform**: Windows, macOS, Linux
 
 ### 🛡️ **Enterprise-Grade Quality**
-- **98% Code Coverage**: 79 comprehensive tests covering all edge cases
+
+- **98%+ Source Code Coverage**: 111 comprehensive tests covering all edge cases
 - **100% TypeScript**: Full type safety and IntelliSense support
 - **Production Ready**: Battle-tested on real projects
 - **Minimal Dependencies**: Only 3 runtime dependencies for maximum security
 
 ### ⚡ **Smart & Safe**
-- **Smart Case Detection**: Preserves your code style across 7 different case formats
+
+- **Smart Case Detection**: Preserves your code style across 8 different case formats
 - **Dry-Run Mode**: Preview all changes before committing
 - **Binary Safe**: Automatically skips binary files, images, and compiled code
 - **Git Aware**: Updates git remote URLs automatically
@@ -64,34 +67,36 @@ A powerful, safe, and intelligent tool for renaming projects across your entire 
   - Detailed change analysis
   - Skips binary files and common build directories
 
-
 ## 🌐 Works With Every Language
 
 The tool intelligently renames across **all programming languages** in your project:
 
 ### JavaScript/TypeScript
+
 ```javascript
 // Before
 export class DataProcessor { ... }
 const dataProcessorConfig = { ... };
 
-// After  
+// After
 export class DataAnalyzer { ... }
 const dataAnalyzerConfig = { ... };
 ```
 
 ### Python
+
 ```python
 # Before
 from analytics_sdk import AnalyticsAPI
 ANALYTICS_KEY = os.getenv('ANALYTICS_KEY')
 
-# After  
+# After
 from metrics_sdk import MetricsAPI
 METRICS_KEY = os.getenv('METRICS_KEY')
 ```
 
 ### Java/Kotlin
+
 ```java
 // Before
 public class PaymentService extends PaymentBase {
@@ -105,6 +110,7 @@ public class BillingService extends BillingBase {
 ```
 
 ### Go
+
 ```go
 // Before
 package userauth
@@ -116,19 +122,21 @@ type AuthenticationConfig struct { ... }
 ```
 
 ### React Native
+
 ```javascript
-// Before  
+// Before
 export default class TodoApp extends Component { ... }
 // ios/TodoApp.xcodeproj
 // android/app/src/main/java/com/todoapp/
 
 // After
 export default class TaskManager extends Component { ... }
-// ios/TaskManager.xcodeproj  
+// ios/TaskManager.xcodeproj
 // android/app/src/main/java/com/taskmanager/
 ```
 
 ### And More!
+
 Works with Ruby, PHP, Rust, C/C++, Swift, Dart, Shell scripts, Docker files, YAML configs, and **any text-based file**!
 
 ## 🚀 Quick Start
@@ -136,6 +144,8 @@ Works with Ruby, PHP, Rust, C/C++, Swift, Dart, Shell scripts, Docker files, YAM
 > **Not a JavaScript developer?** See our [Installation Guide](docs/INSTALLATION.md) for Java, Python, Go, Ruby, PHP, C++ developers!
 
 ### Installation
+
+Requires Node.js 18 or newer and npm 9 or newer.
 
 ```bash
 # Global installation (recommended)
@@ -212,7 +222,7 @@ const renamer = new ProjectRenamer({
   from: 'oldName',
   to: 'newName',
   dryRun: true,
-  verbose: false
+  verbose: false,
 });
 
 // Analyze impact
@@ -232,13 +242,13 @@ const changes = renamer.getChanges();
 
 ```typescript
 interface RenameOptions {
-  from: string;           // Source name to replace
-  to: string;             // Target name to replace with
-  dryRun?: boolean;       // Preview mode (default: false)
-  verbose?: boolean;      // Detailed logging (default: false)
-  skipGit?: boolean;      // Skip git config updates (default: false)
-  ignore?: string[];      // Custom ignore patterns
-  force?: boolean;        // Skip confirmations (default: false)
+  from: string; // Source name to replace
+  to: string; // Target name to replace with
+  dryRun?: boolean; // Preview mode (default: false)
+  verbose?: boolean; // Detailed logging (default: false)
+  skipGit?: boolean; // Skip git config updates (default: false)
+  ignore?: string[]; // Custom ignore patterns
+  force?: boolean; // Skip confirmations (default: false)
 }
 ```
 
@@ -251,7 +261,7 @@ interface RenameOptions {
 
 ## How It Works
 
-1. **Analysis Phase**: 
+1. **Analysis Phase**:
    - Scans the entire project to find all occurrences
    - Counts files, directories, and text replacements
    - Shows preview of changes to be made
@@ -288,12 +298,14 @@ The tool is designed to be safe:
 ## 📊 Quality & Testing
 
 ### Test Coverage
-- 98% overall coverage
-- 79 comprehensive tests
+
+- 98%+ source coverage
+- 111 comprehensive tests
 - Full core logic coverage
 - Cross-platform CI/CD
 
 ### Code Quality
+
 - 100% TypeScript with strict mode
 - ESLint + Prettier enforced
 - Automated dependency updates
@@ -302,7 +314,9 @@ The tool is designed to be safe:
 ## Troubleshooting
 
 ### Case Sensitivity
+
 The tool is case-sensitive. Make sure to provide the exact current name:
+
 ```bash
 # Wrong
 --from "myproject"  # If actual name is "MyProject"
@@ -312,7 +326,9 @@ The tool is case-sensitive. Make sure to provide the exact current name:
 ```
 
 ### Permission Errors
+
 If you encounter permission errors:
+
 ```bash
 # Use with sudo if needed (not recommended)
 sudo refacto --from "OldName" --to "NewName"
@@ -323,18 +339,21 @@ export PATH=~/.npm-global/bin:$PATH
 ```
 
 ### Large Projects
+
 For very large projects (10,000+ files):
+
 ```bash
 # Use verbose mode to see progress
 refacto --from "OldName" --to "NewName" --verbose
 ```
-
 
 ## Contributing
 
 We welcome contributions! This project follows enterprise-grade standards:
 
 ### Development Requirements
+
+- Node.js 20+ for local test tooling; the publish workflow uses Node.js 22+
 - 100% test coverage for new features
 - TypeScript with strict mode
 - ESLint compliance (no warnings)
@@ -342,6 +361,7 @@ We welcome contributions! This project follows enterprise-grade standards:
 - Cross-platform compatibility
 
 ### How to Contribute
+
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
 3. Write tests FIRST (TDD approach)
@@ -352,6 +372,7 @@ We welcome contributions! This project follows enterprise-grade standards:
 8. Open a Pull Request
 
 ### Code Standards
+
 ```bash
 # Before submitting PR
 npm run lint        # Must pass with no errors
