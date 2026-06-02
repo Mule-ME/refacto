@@ -1,9 +1,10 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { exec } from 'child_process';
+import { exec, spawn } from 'child_process';
 import { promisify } from 'util';
 import { promises as fs } from 'fs';
 import path from 'path';
 import os from 'os';
+import { createRequire } from 'module';
 
 const execAsync = promisify(exec);
 
@@ -15,10 +16,10 @@ describe('CLI Integration', () => {
   beforeEach(async () => {
     originalCwd = process.cwd();
     testDir = await fs.mkdtemp(path.join(os.tmpdir(), 'cli-test-'));
-    
+
     // Build path to CLI
-    cliPath = path.join(originalCwd, 'dist', 'cli.js');
-    
+    cliPath = path.join(originalCwd, 'dist', 'cli.mjs');
+
     process.chdir(testDir);
   });
 
@@ -35,8 +36,8 @@ describe('CLI Integration', () => {
 
   describe('help and version', () => {
     it('should show help', async () => {
-      const { stdout } = await execAsync(`node ${cliPath} --help`);
-      
+      const { stdout } = await execAsync(`node "${cliPath}" --help`);
+
       expect(stdout).toContain('refacto');
       expect(stdout).toContain('--from');
       expect(stdout).toContain('--to');
@@ -44,8 +45,8 @@ describe('CLI Integration', () => {
     });
 
     it('should show version', async () => {
-      const { stdout } = await execAsync(`node ${cliPath} --version`);
-      
+      const { stdout } = await execAsync(`node "${cliPath}" --version`);
+
       expect(stdout.trim()).toMatch(/^\d+\.\d+\.\d+/);
     });
   });
@@ -56,27 +57,30 @@ describe('CLI Integration', () => {
       await createTestFile('oldProject.js', 'console.log("oldProject");');
 
       const { stdout } = await execAsync(
-        `node ${cliPath} --from "oldProject" --to "newProject" --dry-run`
+        `node "${cliPath}" --from "oldProject" --to "newProject" --dry-run`
       );
 
       expect(stdout).toContain('DRY RUN MODE');
       expect(stdout).toContain('No changes will be made');
-      
+
       // Files should remain unchanged
       const packageContent = await fs.readFile(path.join(testDir, 'package.json'), 'utf-8');
       expect(packageContent).toContain('oldProject');
-      
+
       await expect(fs.access(path.join(testDir, 'oldProject.js'))).resolves.toBeUndefined();
       await expect(fs.access(path.join(testDir, 'newProject.js'))).rejects.toThrow();
     });
 
     it('should show analysis results', async () => {
-      await createTestFile('package.json', '{"name": "testApp", "description": "testApp description"}');
+      await createTestFile(
+        'package.json',
+        '{"name": "testApp", "description": "testApp description"}'
+      );
       await createTestFile('src/testApp.js', 'class TestApp { getName() { return "testApp"; } }');
       await createTestFile('testApp.md', '# TestApp\n\nThis is testApp documentation.');
 
       const { stdout } = await execAsync(
-        `node ${cliPath} --from "testApp" --to "myApp" --dry-run --verbose`
+        `node "${cliPath}" --from "testApp" --to "myApp" --dry-run --verbose`
       );
 
       expect(stdout).toContain('files with content changes');
@@ -88,11 +92,11 @@ describe('CLI Integration', () => {
   describe('error handling', () => {
     it('should show error for missing required options', async () => {
       try {
-        await execAsync(`node ${cliPath} --from "test"`);
+        await execAsync(`node "${cliPath}" --from "test"`);
         expect.fail('Should have thrown an error');
       } catch (error: any) {
         expect(error.code).toBe(1);
-        expect(error.stderr).toContain('required option');
+        expect(error.stderr).toContain('Both --from and --to options are required');
       }
     });
 
@@ -101,7 +105,7 @@ describe('CLI Integration', () => {
       await createTestFile('test.txt', 'content');
 
       const { stdout } = await execAsync(
-        `node ${cliPath} --from "nonExistent" --to "newName" --dry-run`
+        `node "${cliPath}" --from "nonExistent" --to "newName" --dry-run`
       );
 
       expect(stdout).toContain('DRY RUN COMPLETE');
@@ -114,7 +118,7 @@ describe('CLI Integration', () => {
       await createTestFile('test.js', 'const test = "test";');
 
       const { stdout } = await execAsync(
-        `node ${cliPath} --from "test" --to "demo" --dry-run --verbose`
+        `node "${cliPath}" --from "test" --to "demo" --dry-run --verbose`
       );
 
       expect(stdout).toContain('Smart case preservation enabled');
@@ -128,7 +132,7 @@ describe('CLI Integration', () => {
       await createTestFile('ignore/test.js', 'console.log("test");');
 
       const { stdout } = await execAsync(
-        `node ${cliPath} --from "test" --to "demo" --dry-run --ignore "ignore/**"`
+        `node "${cliPath}" --from "test" --to "demo" --dry-run --ignore "ignore/**"`
       );
 
       expect(stdout).toContain('DRY RUN COMPLETE');
@@ -141,7 +145,7 @@ describe('CLI Integration', () => {
       await createTestFile('test.txt', 'content');
 
       const { code } = await execAsync(
-        `node ${cliPath} --from "nonExistent" --to "demo" --dry-run`
+        `node "${cliPath}" --from "nonExistent" --to "demo" --dry-run`
       ).then(
         result => ({ code: 0, ...result }),
         error => ({ code: error.code, ...error })
@@ -152,13 +156,66 @@ describe('CLI Integration', () => {
 
     it('should exit with code 1 on error', async () => {
       const { code } = await execAsync(
-        `node ${cliPath} --from "test"` // Missing --to argument
+        `node "${cliPath}" --from "test"` // Missing --to argument
       ).then(
         result => ({ code: 0, ...result }),
         error => ({ code: error.code, ...error })
       );
 
       expect(code).toBe(1);
+    });
+  });
+
+  describe('interactive mode', () => {
+    it('should enter prompts without requiring --from and --to up front', async () => {
+      const result = await new Promise<{ stdout: string; stderr: string }>((resolve, reject) => {
+        const child = spawn(process.execPath, [cliPath, '--interactive'], {
+          cwd: testDir,
+          stdio: ['pipe', 'pipe', 'pipe'],
+        });
+        let stdout = '';
+        let stderr = '';
+        const timeout = setTimeout(() => {
+          child.kill();
+          reject(new Error(`interactive mode timed out\nstdout:${stdout}\nstderr:${stderr}`));
+        }, 10000);
+
+        child.stdout.on('data', chunk => {
+          stdout += chunk.toString();
+          if (stdout.includes('Current project name')) {
+            clearTimeout(timeout);
+            child.kill();
+            resolve({ stdout, stderr });
+          }
+        });
+        child.stderr.on('data', chunk => {
+          stderr += chunk.toString();
+        });
+        child.on('error', error => {
+          clearTimeout(timeout);
+          reject(error);
+        });
+        child.on('close', code => {
+          clearTimeout(timeout);
+          if (!stdout.includes('Current project name')) {
+            reject(new Error(`interactive mode exited before prompting with code ${code}`));
+          }
+        });
+      });
+
+      expect(result.stderr).not.toContain('required option');
+      expect(result.stdout).toContain('Interactive Project Rename Tool');
+      expect(result.stdout).toContain('Current project name');
+    });
+  });
+
+  describe('package exports', () => {
+    it('should expose CommonJS exports from the package root', () => {
+      const requireFromTest = createRequire(import.meta.url);
+      const pkg = requireFromTest(originalCwd);
+
+      expect(typeof pkg.ProjectRenamer).toBe('function');
+      expect(typeof pkg.default).toBe('function');
     });
   });
 });

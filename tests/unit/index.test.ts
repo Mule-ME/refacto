@@ -4,7 +4,7 @@ import {
   CaseConverter,
   FileScanner,
   Logger,
-  default as DefaultExport
+  default as DefaultExport,
 } from '../../src/index.js';
 
 describe('Package Exports', () => {

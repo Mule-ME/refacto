@@ -30,7 +30,7 @@ describe('CaseConverter', () => {
     });
 
     it('should detect UPPERCASE', () => {
-      expect(converter.detectCaseStyle('UPPERCASE')).toBe('UPPERCASE');
+      expect(converter.detectCaseStyle('UPPERCASE')).toBe('UPPERCASE_COMPACT');
       expect(converter.detectCaseStyle('MY_CONSTANT')).toBe('UPPERCASE');
       expect(converter.detectCaseStyle('SOME_VALUE')).toBe('UPPERCASE');
     });
@@ -80,13 +80,18 @@ describe('CaseConverter', () => {
     });
 
     it('should convert to UPPERCASE', () => {
-      expect(converter.convertToCase('testWord', 'UPPERCASE')).toBe('TESTWORD');
-      expect(converter.convertToCase('test-word', 'UPPERCASE')).toBe('TEST-WORD');
+      expect(converter.convertToCase('testWord', 'UPPERCASE')).toBe('TEST_WORD');
+      expect(converter.convertToCase('test-word', 'UPPERCASE')).toBe('TEST_WORD');
+    });
+
+    it('should convert to compact uppercase', () => {
+      expect(converter.convertToCase('testWord', 'UPPERCASE_COMPACT')).toBe('TESTWORD');
+      expect(converter.convertToCase('test-word', 'UPPERCASE_COMPACT')).toBe('TESTWORD');
     });
 
     it('should convert to lowercase', () => {
       expect(converter.convertToCase('TestWord', 'lowercase')).toBe('testword');
-      expect(converter.convertToCase('TEST-WORD', 'lowercase')).toBe('test-word');
+      expect(converter.convertToCase('TEST-WORD', 'lowercase')).toBe('testword');
     });
 
     it('should convert to package-scope', () => {
@@ -98,11 +103,12 @@ describe('CaseConverter', () => {
   describe('generateVariations', () => {
     it('should generate all case variations', () => {
       const variations = converter.generateVariations('testWord');
-      
+
       expect(variations.has('testWord')).toBe(true);
       expect(variations.has('TestWord')).toBe(true);
       expect(variations.has('test-word')).toBe(true);
       expect(variations.has('test_word')).toBe(true);
+      expect(variations.has('TEST_WORD')).toBe(true);
       expect(variations.has('TESTWORD')).toBe(true);
       expect(variations.has('testword')).toBe(true);
       expect(variations.has('@testword')).toBe(true);
@@ -110,12 +116,21 @@ describe('CaseConverter', () => {
 
     it('should map variations to correct styles', () => {
       const variations = converter.generateVariations('myProject');
-      
+
       expect(variations.get('myProject')).toBe('camelCase');
       expect(variations.get('MyProject')).toBe('PascalCase');
       expect(variations.get('my-project')).toBe('kebab-case');
       expect(variations.get('my_project')).toBe('snake_case');
+      expect(variations.get('MY_PROJECT')).toBe('UPPERCASE');
+      expect(variations.get('MYPROJECT')).toBe('UPPERCASE_COMPACT');
       expect(variations.get('@myproject')).toBe('package-scope');
+    });
+
+    it('should keep scoped package variations exact', () => {
+      const variations = converter.generateVariations('@myorg/project');
+
+      expect(variations.get('@myorg/project')).toBe('package-scope');
+      expect(variations.has('@myorgproject')).toBe(false);
     });
   });
 
