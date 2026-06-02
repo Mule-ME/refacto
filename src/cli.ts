@@ -11,13 +11,14 @@ import { Logger } from './lib/logger.js';
 import { readFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+import type { RenameAnalysis } from './lib/renamer.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const packageJson = JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf-8'));
 
 interface CliOptions {
-  from: string;
-  to: string;
+  from?: string;
+  to?: string;
   dryRun: boolean;
   verbose: boolean;
   skipGit: boolean;
@@ -26,7 +27,9 @@ interface CliOptions {
   interactive: boolean;
 }
 
-async function confirmChanges(analysis: any, logger: Logger): Promise<boolean> {
+type CompleteCliOptions = CliOptions & { from: string; to: string };
+
+async function confirmChanges(analysis: RenameAnalysis, logger: Logger): Promise<boolean> {
   logger.info('📊 Changes to be made:');
   logger.warn(`  • ${analysis.contentChanges} files will have content changes`);
   logger.warn(`  • ${analysis.fileRenames} files will be renamed`);
@@ -39,54 +42,54 @@ async function confirmChanges(analysis: any, logger: Logger): Promise<boolean> {
       type: 'confirm',
       name: 'proceed',
       message: '⚠️  This will modify files in your project. Do you want to proceed?',
-      default: false
-    }
+      default: false,
+    },
   ]);
 
   return proceed;
 }
 
-async function interactiveMode(logger: Logger): Promise<CliOptions> {
+async function interactiveMode(logger: Logger): Promise<CompleteCliOptions> {
   logger.info('🚀 Welcome to the Interactive Project Rename Tool!');
-  
+
   const answers = await inquirer.prompt([
     {
       type: 'input',
       name: 'from',
       message: 'Current project name:',
-      validate: (input: string) => input.length > 0 || 'Please enter the current project name'
+      validate: (input: string) => input.length > 0 || 'Please enter the current project name',
     },
     {
-      type: 'input', 
+      type: 'input',
       name: 'to',
       message: 'New project name:',
-      validate: (input: string) => input.length > 0 || 'Please enter the new project name'
+      validate: (input: string) => input.length > 0 || 'Please enter the new project name',
     },
     {
       type: 'confirm',
       name: 'dryRun',
       message: 'Run in dry-run mode first? (recommended)',
-      default: true
+      default: true,
     },
     {
       type: 'confirm',
       name: 'verbose',
       message: 'Enable verbose output?',
-      default: false
+      default: false,
     },
     {
       type: 'confirm',
       name: 'skipGit',
       message: 'Skip git configuration updates?',
-      default: false
-    }
+      default: false,
+    },
   ]);
 
   return {
     ...answers,
     force: false,
     interactive: true,
-    ignore: []
+    ignore: [],
   };
 }
 
@@ -95,11 +98,13 @@ async function main(): Promise<void> {
 
   program
     .name('refacto')
-    .description('Rename all occurrences of project name throughout the codebase with smart case preservation')
+    .description(
+      'Rename all occurrences of project name throughout the codebase with smart case preservation'
+    )
     .version(packageJson.version)
-    .requiredOption('--from <name>', 'Current project name (e.g., "Refacto")')
-    .requiredOption('--to <name>', 'New project name (e.g., "TestProject")')
-    .option('--dry-run', 'Show what would be renamed without making changes', false)
+    .option('-f, --from <name>', 'Current project name (e.g., "Refacto")')
+    .option('-t, --to <name>', 'New project name (e.g., "TestProject")')
+    .option('-d, --dry-run', 'Show what would be renamed without making changes', false)
     .option('-v, --verbose', 'Show detailed output', false)
     .option('--skip-git', 'Skip git repository updates', false)
     .option('--ignore <patterns...>', 'Additional ignore patterns')
@@ -107,13 +112,16 @@ async function main(): Promise<void> {
     .option('-i, --interactive', 'Run in interactive mode', false);
 
   // Add examples in help
-  program.addHelpText('after', `
+  program.addHelpText(
+    'after',
+    `
 Examples:
   $ refacto --from "Refacto" --to "MyProject" --dry-run
   $ refacto --from "old-name" --to "new-name" --verbose
   $ refacto --interactive
   $ refacto --from "Company" --to "NewCorp" --ignore "docs/**" "tests/**"
-`);
+`
+  );
 
   program.parse();
   const options = program.opts() as CliOptions;
@@ -121,7 +129,7 @@ Examples:
   const logger = new Logger(options.verbose);
 
   try {
-    let finalOptions: CliOptions;
+    let finalOptions: CompleteCliOptions;
 
     // Interactive mode
     if (options.interactive) {
@@ -132,7 +140,11 @@ Examples:
         logger.error('Both --from and --to options are required (or use --interactive)');
         process.exit(1);
       }
-      finalOptions = options;
+      finalOptions = {
+        ...options,
+        from: options.from,
+        to: options.to,
+      };
     }
 
     // Create renamer instance
@@ -142,7 +154,7 @@ Examples:
     if (!finalOptions.dryRun && !finalOptions.force) {
       const analysis = await renamer.analyze();
       const confirmed = await confirmChanges(analysis, logger);
-      
+
       if (!confirmed) {
         logger.warn('❌ Rename cancelled by user');
         process.exit(0);
@@ -159,16 +171,15 @@ Examples:
       logger.info('  2. Run without --dry-run to apply changes:');
       logger.info(`     refacto --from "${finalOptions.from}" --to "${finalOptions.to}"`);
     }
-
   } catch (error) {
     logger.error('❌ Rename failed:');
     logger.error(error instanceof Error ? error.message : String(error));
-    
+
     if (options.verbose && error instanceof Error) {
       logger.debug('Stack trace:');
       logger.debug(error.stack || '');
     }
-    
+
     process.exit(1);
   }
 }

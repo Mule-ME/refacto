@@ -8,24 +8,26 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
+      all: true,
+      include: ['src/**/*.ts'],
       exclude: [
         'node_modules/',
         'dist/',
         'coverage/',
         '**/*.d.ts',
         '**/*.config.ts',
-        '**/cli.ts' // CLI interface doesn't need coverage
+        '**/cli.ts', // CLI interface doesn't need coverage
       ],
       thresholds: {
         global: {
-          branches: 70, // Lower thresholds for now
-          functions: 70,
-          lines: 70,
-          statements: 70
-        }
-      }
+          branches: 90,
+          functions: 100,
+          lines: 98,
+          statements: 98,
+        },
+      },
     },
     include: ['tests/**/*.{test,spec}.ts'],
-    exclude: ['node_modules', 'dist', '.idea', '.git', '.cache', 'tests/integration/**']
-  }
+    exclude: ['node_modules', 'dist', '.idea', '.git', '.cache'],
+  },
 });

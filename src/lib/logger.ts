@@ -18,13 +18,13 @@ export class Logger {
       verbose,
       silent: false,
       colors: process.stdout.isTTY && !process.env.NO_COLOR,
-      ...options
+      ...options,
     };
   }
 
   private colorize(text: string, color: string): string {
     if (!this.options.colors) return text;
-    
+
     const colors = {
       red: '\x1b[31m',
       green: '\x1b[32m',
@@ -33,19 +33,18 @@ export class Logger {
       magenta: '\x1b[35m',
       cyan: '\x1b[36m',
       gray: '\x1b[90m',
-      reset: '\x1b[0m'
+      reset: '\x1b[0m',
     };
 
     return `${colors[color as keyof typeof colors] || ''}${text}${colors.reset}`;
   }
 
-  private log(level: LogLevel, message: string, ...args: any[]): void {
+  private log(level: LogLevel, message: string, ...args: unknown[]): void {
     if (this.options.silent) return;
-    
+
     // Skip debug messages unless verbose
     if (level === 'debug' && !this.options.verbose) return;
 
-    const timestamp = new Date().toISOString();
     let coloredMessage = message;
     let prefix = '';
 
@@ -71,7 +70,7 @@ export class Logger {
     }
 
     const output = prefix ? `${prefix} ${coloredMessage}` : coloredMessage;
-    
+
     if (level === 'error') {
       console.error(output, ...args);
     } else {
@@ -79,23 +78,23 @@ export class Logger {
     }
   }
 
-  debug(message: string, ...args: any[]): void {
+  debug(message: string, ...args: unknown[]): void {
     this.log('debug', message, ...args);
   }
 
-  info(message: string, ...args: any[]): void {
+  info(message: string, ...args: unknown[]): void {
     this.log('info', message, ...args);
   }
 
-  warn(message: string, ...args: any[]): void {
+  warn(message: string, ...args: unknown[]): void {
     this.log('warn', message, ...args);
   }
 
-  error(message: string, ...args: any[]): void {
+  error(message: string, ...args: unknown[]): void {
     this.log('error', message, ...args);
   }
 
-  success(message: string, ...args: any[]): void {
+  success(message: string, ...args: unknown[]): void {
     this.log('success', message, ...args);
   }
 
@@ -105,7 +104,7 @@ export class Logger {
   child(options: Partial<LoggerOptions>): Logger {
     return new Logger(this.options.verbose, {
       ...this.options,
-      ...options
+      ...options,
     });
   }
 
