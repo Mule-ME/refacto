@@ -13,11 +13,13 @@ Welcome to the refacto documentation!
 ## Quick Links
 
 ### For Users
+
 - [Basic Usage](../examples/basic/) - Simple rename example
 - [Monorepo Usage](../examples/monorepo/) - Working with monorepos
 - [Programmatic API](../examples/programmatic/) - Using as a library
 
 ### For Contributors
+
 - [Project Structure](../CONTRIBUTING.md#project-structure)
 - [Development Setup](../CONTRIBUTING.md#setup)
 - [Testing Guidelines](../CONTRIBUTING.md#testing)

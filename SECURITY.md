@@ -20,12 +20,14 @@ Security vulnerabilities should **never** be reported through public GitHub issu
 ### 2. Report Privately
 
 Please report vulnerabilities through one of these channels:
+
 - **Preferred**: Create a [private security advisory](https://github.com/Mule-ME/refacto/security/advisories/new)
 - **Alternative**: Contact the maintainer directly via GitHub
 
 ### 3. What to Include in Your Report
 
 Please provide:
+
 - **Type of issue** (e.g., buffer overflow, command injection, cross-site scripting, etc.)
 - **Full paths** of source file(s) related to the manifestation of the issue
 - **Location** of the affected source code (tag/branch/commit or direct URL)
@@ -38,7 +40,7 @@ Please provide:
 
 - **Initial Response**: Within 48 hours
 - **Status Update**: Within 5 business days
-- **Resolution Target**: 
+- **Resolution Target**:
   - Critical: 1-3 days
   - High: 7 days
   - Medium: 14 days
@@ -65,12 +67,14 @@ When using refacto:
 ## Security Measures We Take
 
 ### Code Security
+
 - Regular dependency updates via Dependabot
 - Automated security scanning in CI/CD
 - Code review for all changes
 - Type safety with TypeScript
 
 ### Runtime Security
+
 - Input validation and sanitization
 - Safe file system operations
 - No execution of external commands without validation
@@ -79,14 +83,16 @@ When using refacto:
 ## Dependencies
 
 We actively monitor and update dependencies:
+
 - **Automated updates**: Dependabot PRs weekly
 - **Manual audits**: Quarterly security reviews
-- **CI checks**: `npm audit` on every build
+- **CI checks**: dependency audit (`npm audit`) on every build
 - **Zero tolerance**: Critical vulnerabilities fixed immediately
 
 ## Acknowledgments
 
 We appreciate security researchers who help keep refacto safe. Security contributors will be recognized in:
+
 - Release notes
 - GitHub Security Advisories
 - This document (Hall of Fame - coming soon)
