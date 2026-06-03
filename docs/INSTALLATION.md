@@ -2,6 +2,8 @@
 
 This guide is for developers working with **Java, Python, Go, Ruby, PHP, C++, or any other language** who want to use our rename tool.
 
+refacto requires Node.js 18 or newer and npm 9 or newer.
+
 ## 🤔 "I Don't Have Node.js or npm!"
 
 No problem! Here's how to get started from scratch:
@@ -11,6 +13,7 @@ No problem! Here's how to get started from scratch:
 ### Method 1: Quick Install (Recommended)
 
 #### On macOS
+
 ```bash
 # Install Homebrew if you don't have it
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -26,6 +29,7 @@ refacto --from "OldName" --to "NewName"
 ```
 
 #### On Windows
+
 ```powershell
 # Option A: Using Chocolatey
 # Install Chocolatey from https://chocolatey.org/install
@@ -44,6 +48,7 @@ npm install -g refacto
 ```
 
 #### On Linux (Ubuntu/Debian)
+
 ```bash
 # Update package list
 sudo apt update
@@ -56,6 +61,7 @@ sudo npm install -g refacto
 ```
 
 #### On Linux (Fedora/RHEL/CentOS)
+
 ```bash
 # Install Node.js and npm
 sudo dnf install nodejs npm
@@ -96,6 +102,7 @@ docker run -v $(pwd):/project rename-tool --from "OldName" --to "NewName"
 ## 🚀 Usage Examples by Language
 
 ### Java Project
+
 ```bash
 cd /path/to/my-java-project
 
@@ -111,6 +118,7 @@ refacto --from "CustomerService" --to "ClientService"
 ```
 
 ### Python Project
+
 ```bash
 cd /path/to/my-python-project
 
@@ -125,6 +133,7 @@ refacto --from "data_analyzer" --to "data_processor"
 ```
 
 ### Go Project
+
 ```bash
 cd /path/to/my-go-project
 
@@ -139,10 +148,11 @@ refacto --from "userauth" --to "authentication"
 ```
 
 ### PHP Project
+
 ```bash
 cd /path/to/my-php-project
 
-# Rename your PHP project  
+# Rename your PHP project
 refacto --from "BlogEngine" --to "ContentManager"
 
 # This will rename:
@@ -153,6 +163,7 @@ refacto --from "BlogEngine" --to "ContentManager"
 ```
 
 ### Ruby Project
+
 ```bash
 cd /path/to/my-ruby-project
 
@@ -166,6 +177,7 @@ refacto --from "payment_gateway" --to "transaction_handler"
 ```
 
 ### C/C++ Project
+
 ```bash
 cd /path/to/my-cpp-project
 
@@ -182,12 +194,14 @@ refacto --from "RenderEngine" --to "GraphicsEngine"
 ## 💡 Pro Tips
 
 ### 1. Always Use Dry Run First!
+
 ```bash
 # See what will change without making changes
 refacto --from "OldName" --to "NewName" --dry-run
 ```
 
 ### 2. Use Exact Case
+
 ```bash
 # Wrong - if your project uses "DataProcessor"
 refacto --from "dataprocessor" --to "Analytics"
@@ -197,6 +211,7 @@ refacto --from "DataProcessor" --to "Analytics"
 ```
 
 ### 3. Handle Multi-Module Projects
+
 ```bash
 # For projects with multiple modules
 cd /path/to/parent-project
@@ -204,6 +219,7 @@ refacto --from "OldModule" --to "NewModule" --verbose
 ```
 
 ### 4. Exclude Specific Directories
+
 ```bash
 # Skip vendor/third-party directories
 refacto --from "MyApp" --to "YourApp" --ignore "vendor/**" "third_party/**"
@@ -212,9 +228,11 @@ refacto --from "MyApp" --to "YourApp" --ignore "vendor/**" "third_party/**"
 ## 🆘 Troubleshooting
 
 ### "command not found: npm"
+
 You need to install Node.js first. See installation methods above.
 
 ### "command not found: refacto"
+
 ```bash
 # Make sure global npm bin is in your PATH
 export PATH="$PATH:$(npm bin -g)"
@@ -224,6 +242,7 @@ npm install -g refacto
 ```
 
 ### Permission Errors
+
 ```bash
 # On macOS/Linux, you might need sudo
 sudo npm install -g refacto
@@ -237,6 +256,7 @@ export PATH=~/.npm-global/bin:$PATH
 ### Using with Build Tools
 
 #### Maven (Java)
+
 ```xml
 <!-- Add to pom.xml -->
 <plugin>
@@ -255,6 +275,7 @@ export PATH=~/.npm-global/bin:$PATH
 ```
 
 #### Gradle (Java/Kotlin)
+
 ```groovy
 // Add to build.gradle
 task renameProject(type: Exec) {
@@ -263,6 +284,7 @@ task renameProject(type: Exec) {
 ```
 
 #### Make (C/C++)
+
 ```makefile
 # Add to Makefile
 rename:
