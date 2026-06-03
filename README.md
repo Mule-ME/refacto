@@ -42,6 +42,7 @@ A powerful, safe, and intelligent tool for renaming projects across your entire 
 - **Smart Case Detection**: Preserves your code style across 8 different case formats
 - **Dry-Run Mode**: Preview all changes before committing
 - **Binary Safe**: Automatically skips binary files, images, and compiled code
+- **Collision Safe**: Refuses file and directory renames that would overwrite existing paths
 - **Git Aware**: Updates git remote URLs automatically
 
 ## Features
@@ -58,6 +59,7 @@ A powerful, safe, and intelligent tool for renaming projects across your entire 
   - File contents (code, markdown, json, etc.)
   - File names
   - Directory names
+  - Dotfiles and hidden config files
   - Package names
   - Git repository references
 
@@ -65,6 +67,7 @@ A powerful, safe, and intelligent tool for renaming projects across your entire 
   - Dry-run mode to preview changes
   - Confirmation prompt before actual changes
   - Detailed change analysis
+  - Collision checks before file and directory renames
   - Skips binary files and common build directories
 
 ## 🌐 Works With Every Language
@@ -191,11 +194,13 @@ refacto --from "Test" --to "Demo" --force
 
 ### Options
 
-- `--from <name>` - Current project name (required)
-- `--to <name>` - New project name (required)
-- `--dry-run` - Show what would be changed without making changes
+- `--from, -f <name>` - Current project name (required unless using `--interactive`)
+- `--to, -t <name>` - New project name (required unless using `--interactive`)
+- `--dry-run, -d` - Show what would be changed without making changes
 - `--verbose, -v` - Show detailed output
+- `--interactive, -i` - Prompt for rename options interactively
 - `--skip-git` - Skip git repository updates
+- `--force` - Skip confirmation prompts
 - `--help, -h` - Show help message
 
 ### 📋 Examples
@@ -234,6 +239,12 @@ await renamer.rename();
 
 // Get list of changes made
 const changes = renamer.getChanges();
+```
+
+CommonJS is supported too:
+
+```javascript
+const { ProjectRenamer } = require('refacto');
 ```
 
 ### API Reference
