@@ -11,10 +11,10 @@ export default defineConfig({
   minify: false,
   external: [],
   shims: true, // Add shims for import.meta in CJS
-  // Generate both .js and .mjs files
+  // Generate package-type-safe CommonJS and ESM files
   outExtension({ format }) {
     return {
-      js: format === 'cjs' ? '.js' : '.mjs',
+      js: format === 'cjs' ? '.cjs' : '.mjs',
     };
   },
 });
